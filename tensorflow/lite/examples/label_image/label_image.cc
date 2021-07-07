@@ -251,6 +251,11 @@ void RunInference(Settings* settings,
   const std::vector<int> inputs = interpreter->inputs();
   const std::vector<int> outputs = interpreter->outputs();
 
+    {
+    LOG(INFO) << "lcy: number of inputs: " << inputs.size();
+    LOG(INFO) << "lcy: number of outputs: " << outputs.size();
+    }
+    
   if (settings->verbose) {
     LOG(INFO) << "number of inputs: " << inputs.size();
     LOG(INFO) << "number of outputs: " << outputs.size();
@@ -281,7 +286,13 @@ void RunInference(Settings* settings,
   int wanted_height = dims->data[1];
   int wanted_width = dims->data[2];
   int wanted_channels = dims->data[3];
+    
+    LOG(INFO) <<"lcy: given height,width,channels in code: "<<image_height << ", " << image_width
+              << ", " << image_channels;
+    LOG(INFO) <<"lcy: wanted height,width,channels: "<<wanted_height << ", " << wanted_width
+              << ", " << wanted_channels;
 
+    
   settings->input_type = interpreter->tensor(input)->type;
   switch (settings->input_type) {
     case kTfLiteFloat32:
